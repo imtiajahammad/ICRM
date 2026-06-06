@@ -1,0 +1,195 @@
+## CRM Implementation : The ultimate .net CRM Build from scratch
+### A complete, scalable, multi-tenant CRM system
+#### What are we building-
+- ***Structure***: a large-scale solution
+- ***Security***: JWT tokens, auth
+- ***Pattern***: Unit of Work, Repository Pattern
+- ***Web***: Blazor Web App interacts with API
+- ***Tests***: How to write Unit Tests
+- ***Scalability***: Microservices Architecture
+- ***Mobile App***: iOS and Android using .NET MAUI
+- ***Azure***: Deploy to Azure and use GitHub Actions
+
+#### Project Structure:
+- ***Blazor Web Project***: The frontend where users interact with the system
+- ***API Project***: This handles all incoming requests, Generate and validate token
+- ***Service Layer***: This acts as a bridge between the API and the Data Layer
+- ***Data Access Library***: This is where our database logic lives
+- ***Model Library***: A simple class library that holds all our data models
+- ***Utility Library***: A project for various helper functions and tools
+
+
+
+
+
+#### Step by Step: 
+1. Open Terminal and Go to your preferred directory and make a folder for your project solution and open the folder in vscode
+    ```
+    mkdir ICRM
+    cd ICRM
+    code .
+    ```
+2. Create a gitignore file in the solution
+    ```
+    cd ..
+    dotnet new gitignore
+    ```
+3. Create a readme.md file 
+    ```
+    code README.md 
+    ```
+4.  Make a src folder for your project solution
+    ```
+    mkdir src
+    cd src
+    ```
+5. Create a blank solution with name **ICRM**
+    ```
+    dotnet new sln -n ICRM
+    ```
+6. Create a webapi project in the solution
+    ```
+    dotnet new webapi -n ICRM.APi
+    ```
+7. Add the project into the solution 
+    ```
+    dotnet sln add ICRM.Api
+    ```
+8. Go to ICRM.Api and create a new folder Areas/PublicArea/Controllers
+    ```
+    cd ICRM.APi
+    mkdir Areas
+    cd Areas
+    mkdir PublicArea
+    cd PublicArea
+    mkdir Controllers
+    cd Controllers
+    ```
+9. In the Controllers, add a new controller called PublicController
+    ```
+    code PublicController.cs
+    ```
+    ```
+    using Microsoft.AspNetCore.Mvc;
+
+    namespace ICRM.Api.Areas.PublicArea.Controllers;
+
+
+    [Area("PublicArea")]
+    [DisplayName("Public Controller")]
+    [Route("api/[area]/[controller]")]
+    [ApiController]
+    public class PublicController : ControllerBase
+    {
+        [HttpGet]
+        public IActionResult Get()
+        {
+            return Ok("Hello from Public Area");
+        }
+    }
+    ```
+10. Add swagger nuget packages into ICRM.Api and adjust swagger in program.cs
+    ```
+    dotnet add package Swashbuckle.AspNetCore
+    ```
+    ```
+    using Microsoft.OpenApi.Models;
+
+    var builder = WebApplication.CreateBuilder(args);
+
+    // Add services to the container.
+    // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
+    builder.Services.AddControllers();
+    builder.Services.AddOpenApi();
+    builder.Services.AddSwaggerGen(c =>
+    {
+        c.SwaggerDoc("v1", new OpenApiInfo{Title = "CRM Api", Version = "v1"});
+    });
+
+    var app = builder.Build();
+
+    // Configure the HTTP request pipeline.
+    if (app.Environment.IsDevelopment())
+    {
+        app.UseSwagger();
+        app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "CRM Api v1"));
+    }
+    app.UseHttpsRedirection();
+    app.UseAuthorization();
+    /*
+    app.MapControllerRoute(
+        name: "areas",
+        pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
+    );
+    */
+    app.MapControllers();
+    app.Run();
+    ```
+11. Now lets go to src folder and make a Web Blazor app and add it to the solution
+    ```
+    dotnet new blazor -n ICRM.WebBlazor
+    dotnet sln add ICRM.WebBlazor
+    ```
+12. Go to program.cs file in the Blazor app folder and add the following to connect with the web api
+    ```
+    var apiBaseAddress = builder.Configuration["ApiBaseAddress"];
+    builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(apiBaseAddress!)});
+    ```
+13. Now add ApiBaseAddress into the appSettings.json, take the URL from launchSettings.json from ICRM.Api
+    ```
+    "ApiBaseAddress" : "http://localhost:5023/api/",
+    ```
+14. To test the blazor app, lets go to ICRM.WebBlazor/Components/Pages/Home.razor and add the following code-
+    ```
+    <p>@apiResponse</p>
+
+    @code{
+        private string? apiResponse;
+        protected override async Task OnInitializedAsync()
+        {
+            await FetchData();
+        }
+        private async Task FetchData(){
+            try{
+                apiResponse = await Http.GetStringAsync("PublicArea/Public");
+            }
+            catch(Exception ex)
+            {
+                apiResponse = $"Error: {ex.Message}";
+            }
+        }
+    }
+    ```
+15. Now api project and web project both to check if blazor get the api response and show it on Home page
+16. Go to ICRM.Api project, add required packages and add new classes into Areas/Identity/Data/ApplicationDbContext and Areas/Identity/Data/ApplicationUser
+    ```
+    dotnet add package Identity.EntityFrameworkCore
+    dotnet add package Microsoft.EntityFrameworkCore.SqlServer
+    dotnet add package Microsoft.EntityFrameworkCore.Tools
+    ```
+    ```
+    dotnet new class -n ApplicationDbContext
+    dotnet new class -n ApplicationUser
+    ```
+    ```
+
+    ```
+    ```
+
+    ```
+17. 
+
+
+
+
+
+
+
+
+
+
+
+References:
+- https://youtu.be/rxryM6xtkLA?list=PL77e2l8eKh6kIO0X5fukuVKklseKrf9Yv&t=879
+- https://www.youtube.com/watch?v=rxryM6xtkLA&list=PL77e2l8eKh6kIO0X5fukuVKklseKrf9Yv
+- https://github.com/WeCodersNL/CRM

@@ -1,0 +1,6 @@
+@ICRM.Api_HostAddress = http://localhost:5023
+
+GET {{ICRM.Api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
