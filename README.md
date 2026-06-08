@@ -203,7 +203,98 @@
     ```
       "ConnectionStrings": "Server=(localdb)\\mssqllocaldb;Database=ICRM-db;Trusted_Connection=True;MultipleActiveResultSets=true"
     ```
-18. 
+18. Add new class library projects-
+    ```
+    dotnet new classlib -n ICRM.Utility
+    dotnet new classlib -n ICRM.Model
+    dotnet new classlib -n ICRM.DataAccess
+    dotnet new classlib -n ICRM.Service
+    ```
+    Add the project into the solution 
+    ```
+    dotnet sln add ICRM.Utility
+    dotnet sln add ICRM.Model
+    dotnet sln add ICRM.DataAccess
+    dotnet sln add ICRM.Service
+    ```
+19. Add ICRM.Utility reference into Model
+    ```
+    cd ICRM.Model
+    dotnet add reference ../ICRM.Utility
+    ```
+20. Add ICRM.Model reference into ICRM.DataAccess
+    ```
+    cd ICRM.DataAccess
+    dotnet add reference ../ICRM.Model
+    ```
+21. Add ICRM.DataAccess reference into ICRM.Service
+    ```
+    cd ICRM.Service
+    dotnet add reference ../ICRM.DataAccess
+    ```
+22. Add ICRM.Service reference into ICRM.Api
+    ```
+    cd ICRM.Api
+    dotnet add reference ../ICRM.Service
+    ```
+23. Add nuget package from ICRM.Api to ICRM.Utility
+    ```
+    dotnet add package System.Text.Json
+    ```
+24. Add nuget package from ICRM.Api to ICRM.Model
+    ```
+    dotnet add package Microsoft.AspNetCore.Identity
+    dotnet add package Microsoft.AspNetCore.Identity.EntityFrameworkCore
+    ```
+25. Add nuget package from ICRM.Api to ICRM.DataAccess
+    ```
+    dotnet add package Microsoft.EntityFrameworkCore.Tools
+    dotnet add package Microsoft.VisualStudio.Web.CodeGeneration.Design
+    dotnet add package Microsoft.EntityFrameworkCore.SqlServer
+    ```
+26. Remove the packages from ICRM.Api
+    ```
+    cd ICRM.Api
+    dotnet remove package Microsoft.AspNetCore.Identity
+    dotnet remove package Microsoft.AspNetCore.Identity.EntityFrameworkCore
+    dotnet remove package Microsoft.EntityFrameworkCore.SqlServer
+    dotnet remove package Microsoft.EntityFrameworkCore.Tools
+    ```
+27. 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 delete ICRM.API.http file on video 21.11 minutes
@@ -219,6 +310,6 @@ delete ICRM.API.http file on video 21.11 minutes
 
 
 References:
-- https://youtu.be/rxryM6xtkLA?list=PL77e2l8eKh6kIO0X5fukuVKklseKrf9Yv&t=879
+- https://youtu.be/rxryM6xtkLA?list=PL77e2l8eKh6kIO0X5fukuVKklseKrf9Yv&t=1654
 - https://www.youtube.com/watch?v=rxryM6xtkLA&list=PL77e2l8eKh6kIO0X5fukuVKklseKrf9Yv
 - https://github.com/WeCodersNL/CRM
