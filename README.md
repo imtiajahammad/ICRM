@@ -163,7 +163,8 @@
 15. Now api project and web project both to check if blazor get the api response and show it on Home page
 16. Go to ICRM.Api project, add required packages and add new classes into Areas/Identity/Data/ApplicationDbContext and Areas/Identity/Data/ApplicationUser
     ```
-    dotnet add package Identity.EntityFrameworkCore
+    dotnet add package Microsoft.AspNetCore.Identity
+    dotnet add package Microsoft.AspNetCore.Identity.EntityFrameworkCore
     dotnet add package Microsoft.EntityFrameworkCore.SqlServer
     dotnet add package Microsoft.EntityFrameworkCore.Tools
     ```
@@ -172,12 +173,40 @@
     dotnet new class -n ApplicationUser
     ```
     ```
+    using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+    using Microsoft.EntityFrameworkCore;
 
-    ```
-    ```
+    namespace ICRM.Api;
 
+    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
+    {
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
+        {
+            
+        }
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            base.OnModelCreating(builder);
+        }
+    }
     ```
-17. 
+    ```
+    using Microsoft.AspNetCore.Identity;
+    namespace ICRM.Api;
+
+    public class ApplicationUser : IdentityUser
+    {
+
+    }
+    ```
+17. Added the connectionstring into the ICRM/appsettings.json
+    ```
+      "ConnectionStrings": "Server=(localdb)\\mssqllocaldb;Database=ICRM-db;Trusted_Connection=True;MultipleActiveResultSets=true"
+    ```
+18. 
+
+
+delete ICRM.API.http file on video 21.11 minutes
 
 
 
