@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using ICRM.DataAccess;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
@@ -22,6 +23,13 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "CRM Api v1"));
+
+    var url = "http://localhost:5023/swagger";
+    Process.Start(new ProcessStartInfo
+    {
+        FileName = url,
+        UseShellExecute = true
+    });
 }
 app.UseHttpsRedirection();
 app.UseAuthorization();

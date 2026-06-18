@@ -350,47 +350,20 @@
     ```
     dotnet ef database update --context ApplicationDbContext --project ICRM.DataAccess --startup-project ICRM.Api
     ```
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-delete ICRM.API.http file on video 21.11 minutes
-
-
-
-
-
+36. Let's go to ICRM.Api and run the project and check out endpoint with swagger
+    ```
+    dotnet run
+    ```
+37. To run the browser itself, let's add the following code in ICRM.Api.program.cs
+    ```
+        var url = "http://localhost:5023/swagger";
+        Process.Start(new ProcessStartInfo
+        {
+            FileName = url,
+            UseShellExecute = true
+        });
+    ```
+#### PHASE: 02
 
 
 
@@ -398,6 +371,7 @@ delete ICRM.API.http file on video 21.11 minutes
 
 
 References:
-- https://youtu.be/rxryM6xtkLA?list=PL77e2l8eKh6kIO0X5fukuVKklseKrf9Yv&t=1654
-- https://www.youtube.com/watch?v=rxryM6xtkLA&list=PL77e2l8eKh6kIO0X5fukuVKklseKrf9Yv
 - https://github.com/WeCodersNL/CRM
+- https://www.youtube.com/watch?v=rxryM6xtkLA&list=PL77e2l8eKh6kIO0X5fukuVKklseKrf9Yv
+    - delete ICRM.API.http file on video 21.11 minutes
+- https://www.youtube.com/watch?v=l7taMDegxYw&list=PL77e2l8eKh6kIO0X5fukuVKklseKrf9Yv&index=2
