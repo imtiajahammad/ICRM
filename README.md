@@ -260,7 +260,13 @@
     dotnet remove package Microsoft.EntityFrameworkCore.SqlServer
     dotnet remove package Microsoft.EntityFrameworkCore.Tools
     ```
-27. 
+27. Copy ICRM.API.Areas.Identity.Data.ApplicationDataContext and past it into ICRM.DataAccess. And fix the namespace
+28. Create a folder named ***Identity*** in ICRM.Model and move ICRM.Api.Areas.Idenity.Data.ApplicationUser and fix the namespace
+    ```
+    mkdir Identity
+    ```
+29. Delete the default created classes(Class1.cs) from ICRM.Model, ICRM.DataAccess, ICRM.Utility, ICRM.Service and delete ***Data*** folder from ICRM.Api
+
 
 
 

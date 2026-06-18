@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 
-namespace ICRM.Api;
+namespace ICRM.Model;
 
 public class ApplicationUser : IdentityUser
 {

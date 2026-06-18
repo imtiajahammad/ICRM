@@ -1,7 +1,8 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using ICRM.Model;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-namespace ICRM.Api;
+namespace ICRM.DataAccess;
 
 public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
 {
