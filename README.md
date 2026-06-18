@@ -304,8 +304,40 @@
     app.MapControllers();
     app.Run();
     ```
-31. 
+31. Let's complete the ICRM.Model.ApplicationUser with properties
+    ```
+    public class ApplicationUser : IdentityUser
+    {
+        public string? FirstName { get; set; }
+        public string? LastName { get; set; }
+        public Gender? Gender { get; set; }
+        public DateTime? DateOfBirth { get; set; }
+        public DateTime? RegistrationDate { get; set; }
+        public short? VerificationCode { get; set; }
+        public string? ImageName { get; set; }
+        public bool? Activity { get; set; }
 
+        [NotMapped]
+        public string? FullName => $"{FirstName} {LastName}";
+    }
+    ```
+32. In ICRM.Model, add a new folder ***Enums*** and add new class ***Gender*** 
+    ```
+    mkdir Enums
+    dotnet new class -n "Gender"
+    ```
+    ```
+    public enum Gender
+    {
+        [EnumMember(Value ="Male")]
+        Male,
+        [EnumMember(Value ="Female")]    
+        Female,
+        [EnumMember(Value ="Other")]
+        Other
+    }
+    ```
+33. 
 
 
 
