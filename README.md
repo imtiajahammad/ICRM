@@ -337,7 +337,14 @@
         Other
     }
     ```
-33. 
+33. Go to ICRM.Api and add new package 
+    ```
+    dotnet add package Microsoft.EntityFrameworkCore.Design
+    ```
+34.  Now select ICRM.DataAccess and add migration command
+    ```
+    add-migration AddIdentity
+    ```
 
 
 
