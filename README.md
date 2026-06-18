@@ -199,10 +199,11 @@
 
     }
     ```
-17. Added the connectionstring into the ICRM/appsettings.json
+17. Added the connectionstring into the ICRM/appsettings.Development.json
     ```
-      "ConnectionStrings": "Server=(localdb)\\mssqllocaldb;Database=ICRM-db;Trusted_Connection=True;MultipleActiveResultSets=true"
-    ```
+"ConnectionStrings": {
+    "ApplicationDbContextConnection": "Server=WIN-ADD-2644-13\\SQLEXPRESS;Database=ICRM-db;Trusted_Connection=True;MultipleActiveResultSets=true;TrustServerCertificate=True"
+  }    ```
 18. Add new class library projects-
     ```
     dotnet new classlib -n ICRM.Utility
@@ -341,9 +342,13 @@
     ```
     dotnet add package Microsoft.EntityFrameworkCore.Design
     ```
-34.  Now select ICRM.DataAccess and add migration command
+34.  Now select src and run migration command. This will create the migration files
     ```
-    add-migration AddIdentity
+    dotnet ef migrations add AddIdentity --project ICRM.DataAccess --startup-project ICRM.Api --output-dir Migrations
+    ```
+35. Run the update-database command and check if db and tables are created or not, specially the migration table with 1 data of migration
+    ```
+    dotnet ef database update --context ApplicationDbContext --project ICRM.DataAccess --startup-project ICRM.Api
     ```
 
 
