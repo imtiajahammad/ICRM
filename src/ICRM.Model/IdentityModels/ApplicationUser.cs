@@ -2,7 +2,7 @@
 using ICRM.Model.Enums;
 using Microsoft.AspNetCore.Identity;
 
-namespace ICRM.Model;
+namespace ICRM.Model.IdentityModels;
 
 public class ApplicationUser : IdentityUser
 {

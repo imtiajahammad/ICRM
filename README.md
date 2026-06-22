@@ -21,7 +21,7 @@
 
 
 
-
+#### PHASE: 01
 #### Step by Step: 
 1. Open Terminal and Go to your preferred directory and make a folder for your project solution and open the folder in vscode
     ```
@@ -364,6 +364,105 @@
         });
     ```
 #### PHASE: 02
+38. Let's create a controller named ***AuthenticationController*** into ICRM.Api.Areas.Idenity
+    ```
+    mkdir Identity
+    cd Identity
+    dotnet new class -n AuthenticationController
+    ```
+    ```
+    using System.ComponentModel;
+    using Microsoft.AspNetCore.Mvc;
+
+    namespace ICRM.Api;
+
+    [Area("Identity")]
+    [DisplayName("Authentication Controller")]
+    [Route("api/[area]/[controller]")]
+    [ApiController]
+    public class AuthenticationController(IAuthenticationService authenticationService) : ControllerBase
+    {
+        [HttpPost("login")]
+        [DisplayName("Login")]
+        public async Task<IActionResult> Login([FromBody] ApplicationUserLoginInputModel model)
+        {
+            var response = await authenticationService.LoginAsync(model);
+            return response.IsSuccess ? Ok(response) : BadRequest(response);
+        }
+
+        [HttpPost("register")]
+        [DisplayName("Register")]
+        public async Task<IActionResult> Register([FromBody] ApplicationUserRegisterInputModel model)
+        {
+            var response = await authenticationService.RegisterAsync(model);
+            return response ? Ok(response) : StatusCode(500);
+        }
+
+        [HttpPost("forgot-password")]
+        [DisplayName("Forgot Password")]
+        public async Task<IActionResult> ForgotPassword([FromBody] ApplicationUserRegisterInputModel model)
+        {
+            var response = await authenticationService.ForgotPasswordAsync(model);
+            return response ? Ok(response) : StatusCode(500);
+        }
+
+        [HttpPost("reset-password")]
+        [DisplayName("Reset Password")]
+        public async Task<IActionResult> ResetPassword([FromBody] ApplicationUserRegisterInputModel model)
+        {
+            var response = await authenticationService.ResetPasswordAsync(model);
+            return response ? Ok(response) : StatusCode(500);
+        }
+
+        [HttpPost("change-password")]
+        [DisplayName("Change Password")]
+        public async Task<IActionResult> ChangePassword([FromBody] ApplicationUserRegisterInputModel model)
+        {
+            var response = await authenticationService.ChangePasswordAsync(model);
+            return response ? Ok(response) : StatusCode(500);
+        }
+
+        [HttpPost("refresh-token")]
+        [DisplayName("Refresh Token")]
+        public async Task<IActionResult> RefreshToken([FromBody] ApplicationUserRegisterInputModel model)
+        {
+            var response = await authenticationService.RefreshTokenAsync(model);
+            return response ? Ok(response) : StatusCode(500);
+        }
+    }
+
+    ```
+39. Go to ICRM.Service and create a new folder ***IService*** to hold our interfaces
+    ```
+    mkdir IService
+    cd IService
+    dotnet new class -n IAuthenticationService
+    ```
+    ```
+    public interface IAuthenticationService
+    {
+        Task<bool> LoginAsync(ApplicationUserLoginInputModel model);
+        Task<bool> RegisterAsync(ApplicationUserRegisterInputModel model);
+        Task<bool> ForgotPasswordAsync(ApplicationUserRegisterInputModel model);
+        Task<bool> ResetPasswordAsync(ApplicationUserRegisterInputModel model);
+        Task<bool> ChangePasswordAsync(ApplicationUserRegisterInputModel model);
+        Task<bool> RefreshTokenAsync(ApplicationUserRegisterInputModel model);
+
+    }
+    ```
+40. Now let's go to ICRM.Model and create folders for models like input/view/identity
+    ```
+    mkdir InputModels
+    mkdir ViewModels
+    mkdir IdentityModels
+    ```
+Move ApplicationUser to IdentityModels from Identity and delete the Identity folder
+41. Add ***ApplicationUserViewModel*** into ICRM.Model.ViewModels
+```
+dotnet new class -n ApplicationUserViewModel
+```
+
+42. 
 
 
 
@@ -374,4 +473,4 @@ References:
 - https://github.com/WeCodersNL/CRM
 - https://www.youtube.com/watch?v=rxryM6xtkLA&list=PL77e2l8eKh6kIO0X5fukuVKklseKrf9Yv
     - delete ICRM.API.http file on video 21.11 minutes
-- https://www.youtube.com/watch?v=l7taMDegxYw&list=PL77e2l8eKh6kIO0X5fukuVKklseKrf9Yv&index=2
+- https://youtu.be/l7taMDegxYw?list=PL77e2l8eKh6kIO0X5fukuVKklseKrf9Yv&t=1234
