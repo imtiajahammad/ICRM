@@ -200,10 +200,14 @@
     }
     ```
 17. Added the connectionstring into the ICRM/appsettings.Development.json
+    
     ```
-"ConnectionStrings": {
-    "ApplicationDbContextConnection": "Server=WIN-ADD-2644-13\\SQLEXPRESS;Database=ICRM-db;Trusted_Connection=True;MultipleActiveResultSets=true;TrustServerCertificate=True"
-  }    ```
+    "ConnectionStrings": 
+    {
+        "ApplicationDbContextConnection": "Server=WIN-ADD-2644-13\\SQLEXPRESS;Database=ICRM-db;Trusted_Connection=True;MultipleActiveResultSets=true;TrustServerCertificate=True"
+    }    
+    ```
+
 18. Add new class library projects-
     ```
     dotnet new classlib -n ICRM.Utility
@@ -343,9 +347,9 @@
     dotnet add package Microsoft.EntityFrameworkCore.Design
     ```
 34.  Now select src and run migration command. This will create the migration files
-    ```
-    dotnet ef migrations add AddIdentity --project ICRM.DataAccess --startup-project ICRM.Api --output-dir Migrations
-    ```
+        ```
+        dotnet ef migrations add AddIdentity --project ICRM.DataAccess --startup-project ICRM.Api --output-dir Migrations
+        ```
 35. Run the update-database command and check if db and tables are created or not, specially the migration table with 1 data of migration
     ```
     dotnet ef database update --context ApplicationDbContext --project ICRM.DataAccess --startup-project ICRM.Api
@@ -356,12 +360,12 @@
     ```
 37. To run the browser itself, let's add the following code in ICRM.Api.program.cs
     ```
-        var url = "http://localhost:5023/swagger";
-        Process.Start(new ProcessStartInfo
-        {
-            FileName = url,
-            UseShellExecute = true
-        });
+    var url = "http://localhost:5023/swagger";
+    Process.Start(new ProcessStartInfo
+    {
+        FileName = url,
+        UseShellExecute = true
+    });
     ```
 #### PHASE: 02
 
